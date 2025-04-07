@@ -5,12 +5,13 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import "./index.css";
 
 export default function App() {
   return (
     <html lang="en">
       <head>
-        <title>Portfolio</title>
+        <title>Dominik | Fullstack Developer</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
