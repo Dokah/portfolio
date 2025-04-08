@@ -1,6 +1,6 @@
 # 🌐 My Portfolio
 
-Welcome to my personal portfolio website! This project is built using **Remix.js**, a modern web framework focused on fast performance and great developer experience, and it's deployed seamlessly with **Netlify**..
+Welcome to my personal portfolio website! This project is built using **Remix.js**, a modern web framework focused on fast performance and great developer experience, and it's deployed seamlessly with **Netlify**.
 
 ## 🚀 Tech Stack
 
