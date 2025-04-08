@@ -1,5 +1,9 @@
 import { DotType } from "~/types/backgroundCanvas.type";
 
+const isMobile = (): boolean => {
+  return /Mobi|Android|iPhone|iPad|iPod|Touch/i.test(navigator.userAgent);
+};
+
 export const canvasDots = () => {
   const canvas = document.querySelector("canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -32,44 +36,48 @@ export const canvasDots = () => {
   let mouseX = -9999;
   let mouseY = -9999;
 
+if (!isMobile()){
   window.addEventListener("mousemove", (e: MouseEvent) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
   });
-
-  window.addEventListener("touchmove", (e: TouchEvent) => {
-    mouseX = e.touches[0].clientX;
-    mouseY = e.touches[0].clientY;
-  });
+}
 
   const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  
     for (let dot of dots) {
       // Update dot position
       dot.x += dot.vx;
       dot.y += dot.vy;
-
+  
       // Bounce off edges
       if (dot.x <= 0 || dot.x >= canvas.width) dot.vx *= -1;
       if (dot.y <= 0 || dot.y >= canvas.height) dot.vy *= -1;
-
-      // Calculate distance to mouse
-      const dx = dot.x - mouseX;
-      const dy = dot.y - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < REVEAL_RADIUS) {
-        const alpha = 1 - dist / REVEAL_RADIUS;
-
+  
+      if (isMobile()) {
+        // Mobile
         ctx.beginPath();
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = 1;
         ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
         ctx.fill();
+      } else {
+        // Desktop
+        const dx = dot.x - mouseX;
+        const dy = dot.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+  
+        if (dist < REVEAL_RADIUS) {
+          const alpha = Math.pow(1 - dist / REVEAL_RADIUS, 2);
+          ctx.beginPath();
+          ctx.globalAlpha = alpha;
+          ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
     }
-
-    ctx.globalAlpha = 1;
+  
+    ctx.globalAlpha = 1; // reset
     requestAnimationFrame(animate);
   };
 
