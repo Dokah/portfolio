@@ -10,6 +10,7 @@ h1 {
   font-weight: 500;
   z-index: 999;
   cursor: default;
+  text-align: center;
 }
 
 h1 > span {
@@ -26,4 +27,10 @@ canvas {
   right: 0;
   left: 0;
   bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-wrap: wrap;
+  }
 }

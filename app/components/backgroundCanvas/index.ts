@@ -37,6 +37,11 @@ export const canvasDots = () => {
     mouseY = e.clientY;
   });
 
+  window.addEventListener("touchmove", (e: TouchEvent) => {
+    mouseX = e.touches[0].clientX;
+    mouseY = e.touches[0].clientY;
+  });
+
   const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
