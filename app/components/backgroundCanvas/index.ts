@@ -15,7 +15,7 @@ export const canvasDots = () => {
   canvas.style.display = "block";
 
   const dots: DotType[] = [];
-  const NUM_DOTS = 600;
+  const NUM_DOTS = isMobile() ? 200 : 600;
   const REVEAL_RADIUS = 500;
 
   const color = "#228b22";

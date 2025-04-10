@@ -1,0 +1,7 @@
+h1 {
+  font-size: 3rem;
+  font-weight: 500;
+  z-index: 999;
+  cursor: default;
+  text-align: center;
+}

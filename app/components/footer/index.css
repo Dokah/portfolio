@@ -2,3 +2,17 @@
   position: absolute;
   bottom: 0;
 }
+
+.logo {
+  height: 45px;
+  width: 45px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
