@@ -92,8 +92,7 @@ export default function Screen() {
   const ActiveSlide = slides[currentSlide];
 
   return (
-    //${isMobile() && "mobile"}
-    <div className={`screen`}>
+    <div className={`screen ${isMobile() && "mobile"}`}>
       {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
       {!isMobile() && (
         <Header
@@ -104,10 +103,11 @@ export default function Screen() {
       )}
 
       {!hasScrolled ? (
-        <motion.div>
-          <Home setNextSlide={nextSlide} />
-        </motion.div>
+        <Home setNextSlide={nextSlide} />
       ) : (
+        // <motion.div>
+        //   <Home setNextSlide={nextSlide} />
+        // </motion.div>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
