@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { About } from "~/components/about";
+import { canvasDots } from "~/components/backgroundCanvas";
 import { Contact } from "~/components/contact";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Home } from "~/components/home";
 import { Projects } from "~/components/projects";
+import { isMobile } from "~/utility/utils";
 
 const slides = [Home, About, Projects, Contact];
 
@@ -14,6 +16,8 @@ export default function Screen() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const touchStartY = useRef<number | null>(null);
+
+  const isScrollingRef = useRef(false);
 
   const nextSlide = () => {
     setHasScrolled(true);
@@ -38,15 +42,27 @@ export default function Screen() {
   };
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
     const onWheel = (e: WheelEvent) => {
+      if (isScrollingRef.current) return;
+
       if (e.deltaY > 20) {
         nextSlide();
+        isScrollingRef.current = true;
+        timeout = setTimeout(() => (isScrollingRef.current = false), 800);
       } else if (e.deltaY < -20) {
         previousSlide();
+        isScrollingRef.current = true;
+        timeout = setTimeout(() => (isScrollingRef.current = false), 800);
       }
     };
+
     window.addEventListener("wheel", onWheel);
-    return () => window.removeEventListener("wheel", onWheel);
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      clearTimeout(timeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -77,11 +93,14 @@ export default function Screen() {
 
   return (
     <div className="screen">
-      <Header
-        setHasScrolled={setHasScrolled}
-        setCurrentSlide={goToSlide}
-        currentSlide={currentSlide}
-      />
+      {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
+      {!isMobile() && (
+        <Header
+          currentSlide={currentSlide}
+          setCurrentSlide={goToSlide}
+          setHasScrolled={setHasScrolled}
+        />
+      )}
 
       {!hasScrolled ? (
         <Home setNextSlide={nextSlide} />
@@ -93,7 +112,7 @@ export default function Screen() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: direction === "next" ? -50 : 50 }}
             transition={{ duration: 0.6 }}
-            className="absolute inset-0"
+            className="absolute inset-0 h-full"
           >
             <ActiveSlide setNextSlide={nextSlide} />
           </motion.div>

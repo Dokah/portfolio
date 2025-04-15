@@ -10,7 +10,6 @@ export const Header = ({
   setHasScrolled: Function;
 }) => {
   const slides = ["Home", "About", "Projects", "Contact"];
-
   return (
     <div className="header">
       {slides.map((title, index) => (

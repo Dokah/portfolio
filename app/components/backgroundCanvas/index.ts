@@ -1,8 +1,7 @@
 import { DotType } from "~/types/backgroundCanvas.type";
+import { isMobile } from "~/utility/utils";
 
-const isMobile = (): boolean => {
-  return /Mobi|Android|iPhone|iPad|iPod|Touch/i.test(navigator.userAgent);
-};
+
 
 export const canvasDots = () => {
   const canvas = document.querySelector("canvas") as HTMLCanvasElement;

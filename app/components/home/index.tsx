@@ -10,7 +10,6 @@ export const Home = ({ setNextSlide }: { setNextSlide: Function }) => {
 
   return (
     <div id="home" className="home">
-      <canvas className="connecting-dots"></canvas>
       <h1>
         Hello, I'm <span>Dominik</span>.
       </h1>
