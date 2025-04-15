@@ -16,7 +16,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  .screen {
+  .mobile {
     justify-content: flex-start;
   }
 }
