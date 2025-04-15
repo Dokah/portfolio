@@ -92,7 +92,8 @@ export default function Screen() {
   const ActiveSlide = slides[currentSlide];
 
   return (
-    <div className={`screen ${isMobile() && "mobile"}`}>
+    //${isMobile() && "mobile"}
+    <div className={`screen`}>
       {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
       {!isMobile() && (
         <Header
