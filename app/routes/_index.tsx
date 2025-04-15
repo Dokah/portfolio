@@ -103,11 +103,10 @@ export default function Screen() {
       )}
 
       {!hasScrolled ? (
-        <Home setNextSlide={nextSlide} />
+        <div>
+          <Home setNextSlide={nextSlide} />
+        </div>
       ) : (
-        // <motion.div>
-        //   <Home setNextSlide={nextSlide} />
-        // </motion.div>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
