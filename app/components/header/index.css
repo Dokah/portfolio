@@ -1,13 +1,10 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 3rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-right: 16px;
-  margin-top: 16px;
-  margin-left: 16px;
+  height: 10%;
+  width: 100%;
+  align-items: center;
 }
 
 .header > span {
@@ -23,12 +20,12 @@
   cursor: default !important;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .header {
-    flex-wrap: wrap;
-    padding: 5%;
-    gap: 2.5rem;
     justify-content: center;
-    align-items: center;
+  }
+  .header > span {
+    font-size: 3rem;
+    padding: 15;
   }
 }

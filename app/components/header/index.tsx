@@ -1,3 +1,4 @@
+import { isMobile } from "~/utility/utils";
 import "./index.css";
 
 export const Header = ({
@@ -9,23 +10,27 @@ export const Header = ({
   setCurrentSlide: Function;
   setHasScrolled: Function;
 }) => {
-  const slides = ["Home", "About", "Projects", "Contact"];
+  const slides = ["Home", "Tech", "Projects", "Contact"];
   return (
     <div className="header">
-      {slides.map((title, index) => (
-        <span
-          onClick={() => {
-            if (currentSlide !== index) {
-              setHasScrolled(true);
-              setCurrentSlide(index);
-            }
-          }}
-          key={index}
-          className={currentSlide === index ? "selected" : ""}
-        >
-          {title}
-        </span>
-      ))}
+      {!isMobile() ? (
+        slides.map((title, index) => (
+          <span
+            onClick={() => {
+              if (currentSlide !== index) {
+                setHasScrolled(true);
+                setCurrentSlide(index);
+              }
+            }}
+            key={index}
+            className={currentSlide === index ? "selected" : ""}
+          >
+            {title}
+          </span>
+        ))
+      ) : (
+        <span>{currentSlide !== 0 && slides[currentSlide]}</span>
+      )}
     </div>
   );
 };

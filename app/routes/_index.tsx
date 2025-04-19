@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { About } from "~/components/about";
-import { canvasDots } from "~/components/backgroundCanvas";
+import { Tech } from "~/components/tech";
 import { Contact } from "~/components/contact";
 import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
@@ -9,7 +8,7 @@ import { Home } from "~/components/home";
 import { Projects } from "~/components/projects";
 import { isMobile } from "~/utility/utils";
 
-const slides = [Home, About, Projects, Contact];
+const slides = [Home, Tech, Projects, Contact];
 
 export default function Screen() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -92,32 +91,37 @@ export default function Screen() {
   const ActiveSlide = slides[currentSlide];
 
   return (
-    <div className={`screen ${isMobile() && "mobile"}`}>
+    <div className="screen">
       {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
-      {!isMobile() && (
-        <Header
-          currentSlide={currentSlide}
-          setCurrentSlide={goToSlide}
-          setHasScrolled={setHasScrolled}
-        />
-      )}
-
+      <Header
+        currentSlide={currentSlide}
+        setCurrentSlide={goToSlide}
+        setHasScrolled={setHasScrolled}
+      />
       {!hasScrolled ? (
-        <div>
+        <div className="content">
           <Home setNextSlide={nextSlide} />
         </div>
       ) : (
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, y: direction === "next" ? 50 : -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: direction === "next" ? -50 : 50 }}
-            transition={{ duration: 0.6 }}
-            className="absolute inset-0 h-full"
-          >
-            <ActiveSlide setNextSlide={nextSlide} />
-          </motion.div>
+          <div className="content">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: direction === "next" ? 50 : -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: direction === "next" ? -50 : 50 }}
+              transition={{ duration: 0.6 }}
+              style={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <ActiveSlide setNextSlide={nextSlide} />
+            </motion.div>
+          </div>
         </AnimatePresence>
       )}
 

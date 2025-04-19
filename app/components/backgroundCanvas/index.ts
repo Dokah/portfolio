@@ -27,7 +27,7 @@ export const canvasDots = () => {
       y: Math.random() * canvas.height,
       vx: -0.3 + Math.random() * 0.6,
       vy: -0.3 + Math.random() * 0.6,
-      radius: Math.random() * 1.5 + 0.5,
+      radius: Math.random() * 2.5 + 0.5,
     });
   }
 
