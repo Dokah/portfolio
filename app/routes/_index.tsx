@@ -6,7 +6,6 @@ import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Home } from "~/components/home";
 import { Projects } from "~/components/projects";
-import { isMobile } from "~/utility/utils";
 
 const slides = [Home, Tech, Projects, Contact];
 
