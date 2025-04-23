@@ -2,18 +2,20 @@ import { useEffect } from "react";
 
 export function useViewportHeight() {
   useEffect(() => {
-    const setVh = () => {
+    const setHeight = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    setVh();
-    window.addEventListener("resize", setVh);
-    window.addEventListener("orientationchange", setVh);
+    // Delay a bit after hydration to let iOS settle viewport
+    const timeout = setTimeout(setHeight, 100);
+    window.addEventListener("resize", setHeight);
+    window.addEventListener("orientationchange", setHeight);
 
     return () => {
-      window.removeEventListener("resize", setVh);
-      window.removeEventListener("orientationchange", setVh);
+      clearTimeout(timeout);
+      window.removeEventListener("resize", setHeight);
+      window.removeEventListener("orientationchange", setHeight);
     };
   }, []);
 }
