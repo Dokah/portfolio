@@ -6,11 +6,20 @@ body {
   color: #fafafa;
   padding-left: 15px;
   padding-right: 15px;
-  min-height: 100dvh;
+}
+
+:root {
+  --app-height: 100dvh;
+}
+
+@supports not (height: 100dvh) {
+  :root {
+    --app-height: 100vh;
+  }
 }
 
 .screen {
-  height: 100dvh !important;
+  height: var(--app-height);
   display: flex;
   flex-direction: column;
 }

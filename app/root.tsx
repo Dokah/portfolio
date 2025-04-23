@@ -8,6 +8,15 @@ import {
 import "./index.css";
 
 export default function App() {
+  const setAppHeight = () => {
+    document.documentElement.style.setProperty(
+      "--app-height",
+      `${window.innerHeight}px`
+    );
+  };
+  window.addEventListener("resize", setAppHeight);
+  window.addEventListener("orientationchange", setAppHeight);
+  setAppHeight();
   return (
     <html lang="en">
       <head>
