@@ -92,11 +92,13 @@ export default function Screen() {
   return (
     <div className="screen">
       {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
-      <Header
-        currentSlide={currentSlide}
-        setCurrentSlide={goToSlide}
-        setHasScrolled={setHasScrolled}
-      />
+      <div className="header">
+        <Header
+          currentSlide={currentSlide}
+          setCurrentSlide={goToSlide}
+          setHasScrolled={setHasScrolled}
+        />
+      </div>
       {!hasScrolled ? (
         <div className="content">
           <Home setNextSlide={nextSlide} />
@@ -124,7 +126,9 @@ export default function Screen() {
         </AnimatePresence>
       )}
 
-      <Footer />
+      <div className="footer">
+        <Footer />
+      </div>
     </div>
   );
 }
