@@ -9,7 +9,7 @@ body {
 }
 
 .screen {
-  height: 100dvh;
+  height: 80dvh;
   max-height: 100dvh;
   display: flex;
   justify-content: center;
