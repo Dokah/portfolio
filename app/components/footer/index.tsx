@@ -13,7 +13,9 @@ export const Footer = () => {
           <img src={linkedinLogoURL} alt="LinkedIn" className="logo" />
         </a>
       </div>
-      <p>&copy; {new Date().getFullYear()} Dominik Kukovec</p>
+      <span style={{ padding: 5 }}>
+        &copy; {new Date().getFullYear()} Dominik Kukovec
+      </span>
     </div>
   );
 };
