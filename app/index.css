@@ -6,14 +6,11 @@ body {
   color: #fafafa;
   padding-left: 15px;
   padding-right: 15px;
-}
-
-:root {
-  --vh: 1vh;
+  height: -webkit-fill-available;
 }
 
 .screen {
-  height: calc(var(--vh) * 100);
+  height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
 }

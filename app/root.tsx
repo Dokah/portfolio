@@ -6,10 +6,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import "./index.css";
-import { useViewportHeight } from "./hooks/useViewPortHeight";
 
 export default function App() {
-  useViewportHeight();
   return (
     <html lang="en">
       <head>
