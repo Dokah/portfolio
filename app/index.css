@@ -9,7 +9,7 @@ body {
 }
 
 .screen {
-  height: 100dvh;
+  height: calc(100dvh - 5px);
   display: flex;
   flex-direction: column;
 }
