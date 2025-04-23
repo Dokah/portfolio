@@ -6,6 +6,7 @@ import { Footer } from "~/components/footer";
 import { Header } from "~/components/header";
 import { Home } from "~/components/home";
 import { Projects } from "~/components/projects";
+import { ScreenWrapper } from "~/components/screenWrapper/ScreenWrapper";
 
 const slides = [Home, Tech, Projects, Contact];
 
@@ -90,7 +91,7 @@ export default function Screen() {
   const ActiveSlide = slides[currentSlide];
 
   return (
-    <div className="screen">
+    <ScreenWrapper>
       {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
       <div className="header">
         <Header
@@ -129,6 +130,6 @@ export default function Screen() {
       <div className="footer">
         <Footer />
       </div>
-    </div>
+    </ScreenWrapper>
   );
 }

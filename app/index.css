@@ -6,10 +6,11 @@ body {
   color: #fafafa;
   padding-left: 15px;
   padding-right: 15px;
+  height: 100% !important;
+  margin: 0 !important;
 }
 
 .screen {
-  height: calc(100dvh - 5px);
   display: flex;
   flex-direction: column;
 }
