@@ -12,7 +12,7 @@ export const Header = ({
 }) => {
   const slides = ["Home", "Tech", "Projects", "Contact"];
   return (
-    <div className="header">
+    <div className="header-container">
       {!isMobile() ? (
         slides.map((title, index) => (
           <span

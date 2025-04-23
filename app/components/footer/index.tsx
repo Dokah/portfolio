@@ -4,7 +4,7 @@ import linkedinLogoURL from "../../assets/linkedin.svg";
 
 export const Footer = () => {
   return (
-    <div className="footer">
+    <div className="footer-container">
       <div className="footer-socials">
         <a href="https://github.com/Dokah">
           <img src={githubLogoURL} alt="GitHub" className="logo" />
