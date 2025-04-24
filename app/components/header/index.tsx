@@ -11,6 +11,8 @@ export const Header = ({
   setHasScrolled: Function;
 }) => {
   const slides = ["HOME", "STACK", "PROJECTS", "CONTACT"];
+
+  if (!window) return null;
   return (
     <div className={`${isMobile() ? "tablet-" : ""}header-container`}>
       {!isMobile() ? (
