@@ -1,5 +1,5 @@
 import { DotType } from "~/types/backgroundCanvas.type";
-import { debounce, isMobile } from "~/utility/utils";
+import { isMobile } from "~/utility/utils"; // For detecting mobile devices
 
 export const canvasDots = () => {
   const canvas = document.querySelector("canvas") as HTMLCanvasElement;
@@ -7,34 +7,42 @@ export const canvasDots = () => {
 
   if (!canvas || !ctx) return;
 
-  // Initial canvas size setup
+  // Initialize canvas size
   const resizeCanvas = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   };
 
-  resizeCanvas(); // Set canvas size initially
+  // Resize the canvas initially
+  resizeCanvas();
 
   const dots: DotType[] = [];
-  const NUM_DOTS = isMobile() ? 100 : 600; // Adjust number of dots based on device
+  const NUM_DOTS = isMobile() ? 100 : 600; // Adjust dots for mobile
   const REVEAL_RADIUS = 500;
   const color = "#228b22";
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
 
-  for (let i = 0; i < NUM_DOTS; i++) {
-    dots.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: -0.3 + Math.random() * 0.6,
-      vy: -0.3 + Math.random() * 0.6,
-      radius: Math.random() * 2.5 + 0.5,
-    });
-  }
+  // Function to create the dots
+  const createDots = () => {
+    for (let i = 0; i < NUM_DOTS; i++) {
+      dots.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: -0.3 + Math.random() * 0.6,
+        vy: -0.3 + Math.random() * 0.6,
+        radius: Math.random() * 2.5 + 0.5,
+      });
+    }
+  };
 
-  // Mouse move listener for non-mobile
+  // Create the dots initially
+  createDots();
+
+  // Mouse move listener (only for non-mobile)
   let mouseX = -9999;
   let mouseY = -9999;
+
   if (!isMobile()) {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
@@ -47,9 +55,9 @@ export const canvasDots = () => {
     };
   }
 
-  // Main animation loop
+  // Animation loop
   const animate = () => {
-    // Redraw only if necessary, otherwise use the existing state
+    // Clear canvas only when necessary, no total clear each time
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let dot of dots) {
@@ -65,14 +73,14 @@ export const canvasDots = () => {
       const dy = dot.y - mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // For mobile, show the dots normally
+      // Show dots differently for mobile and desktop
       if (isMobile()) {
         ctx.beginPath();
         ctx.globalAlpha = 1;
         ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
         ctx.fill();
       } else {
-        // For desktop, reveal dots based on mouse proximity
+        // Desktop: reveal based on mouse position
         if (dist < REVEAL_RADIUS) {
           const alpha = Math.pow(1 - dist / REVEAL_RADIUS, 2);
           ctx.beginPath();
@@ -83,33 +91,32 @@ export const canvasDots = () => {
       }
     }
 
-    ctx.globalAlpha = 1; // Reset alpha for next frame
-    requestAnimationFrame(animate); // Continue animation loop
+    ctx.globalAlpha = 1; // Reset alpha
+    requestAnimationFrame(animate);
   };
 
   animate(); // Start the animation loop
 
-  // Resize listener to adjust canvas size only when necessary
-  const handleResize = debounce(() => {
-    resizeCanvas();
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Optionally clear canvas on resize
-    // You can choose to reset the dots or keep them during resize
-    dots.length = 0; // Clear existing dots
-    for (let i = 0; i < NUM_DOTS; i++) {
-      dots.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: -0.3 + Math.random() * 0.6,
-        vy: -0.3 + Math.random() * 0.6,
-        radius: Math.random() * 2.5 + 0.5,
-      });
-    }
-  }, 1000); // Delay the resize handler
+  // Resize handling with throttling
+  let resizing = false;
 
+  const handleResize = () => {
+    if (!resizing) {
+      resizing = true;
+      setTimeout(() => {
+        resizeCanvas(); // Resize the canvas
+        dots.length = 0; // Clear the existing dots
+        createDots(); // Recreate the dots based on the new canvas size
+        resizing = false;
+      }, 200); // Throttle resize with a delay
+    }
+  };
+
+  // Attach the resize event handler
   window.addEventListener("resize", handleResize);
 
+  // Cleanup resize event listener on unmount
   return () => {
     window.removeEventListener("resize", handleResize);
-    handleResize.cancel(); // Clean up debounce handler on component unmount
   };
 };
