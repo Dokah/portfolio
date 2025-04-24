@@ -104,7 +104,7 @@ export const canvasDots = () => {
         radius: Math.random() * 2.5 + 0.5,
       });
     }
-  }, 200); // Delay the resize handler
+  }, 1000); // Delay the resize handler
 
   window.addEventListener("resize", handleResize);
 
