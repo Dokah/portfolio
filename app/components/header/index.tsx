@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { isMobile } from "~/utility/utils";
 import "./index.css";
 
@@ -12,10 +13,19 @@ export const Header = ({
 }) => {
   const slides = ["HOME", "STACK", "PROJECTS", "CONTACT"];
 
-  if (!window) return null;
+  const [isMobileClient, setIsMobileClient] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    setIsMobileClient(isMobile());
+  }, []);
+
+  if (isMobileClient === null) {
+    return null;
+  }
+
   return (
-    <div className={`${isMobile() ? "tablet-" : ""}header-container`}>
-      {!isMobile() ? (
+    <div className={`${isMobileClient ? "tablet-" : ""}header-container`}>
+      {!isMobileClient ? (
         slides.map((title, index) => (
           <span
             onClick={() => {
