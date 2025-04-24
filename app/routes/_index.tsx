@@ -7,6 +7,8 @@ import { Header } from "~/components/header";
 import { Home } from "~/components/home";
 import { Projects } from "~/components/projects";
 import { ScreenWrapper } from "~/components/screenWrapper/ScreenWrapper";
+import { canvasDots } from "~/components/backgroundCanvas";
+import { debounce } from "~/utility/utils";
 
 const slides = [Home, Tech, Projects, Contact];
 
@@ -15,6 +17,7 @@ export default function Screen() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const touchStartY = useRef<number | null>(null);
+  const [size, setSize] = useState(0);
 
   const isScrollingRef = useRef(false);
 
@@ -90,9 +93,24 @@ export default function Screen() {
 
   const ActiveSlide = slides[currentSlide];
 
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      setSize(window.innerWidth);
+    }, 200);
+    window.addEventListener("resize", () => handleResize());
+    return () => {
+      window.removeEventListener("resize", () => handleResize());
+      handleResize.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
+    canvasDots();
+  }, [size]);
+
   return (
     <ScreenWrapper>
-      {currentSlide === 0 && <canvas className="connecting-dots"></canvas>}
+      <canvas className="connecting-dots"></canvas>
       <div className="header">
         <Header
           currentSlide={currentSlide}
