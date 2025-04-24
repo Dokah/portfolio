@@ -10,9 +10,9 @@ export const Header = ({
   setCurrentSlide: Function;
   setHasScrolled: Function;
 }) => {
-  const slides = ["Home", "Tech", "Projects", "Contact"];
+  const slides = ["HOME", "STACK", "PROJECTS", "CONTACT"];
   return (
-    <div className="header-container">
+    <div className={`${isMobile() ? "tablet-" : ""}header-container`}>
       {!isMobile() ? (
         slides.map((title, index) => (
           <span

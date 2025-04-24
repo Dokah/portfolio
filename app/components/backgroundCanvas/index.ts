@@ -2,7 +2,6 @@ import { DotType } from "~/types/backgroundCanvas.type";
 import { isMobile } from "~/utility/utils";
 
 
-
 export const canvasDots = () => {
   const canvas = document.querySelector("canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;

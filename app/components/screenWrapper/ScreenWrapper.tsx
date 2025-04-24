@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function ScreenWrapper({ children }: { children: React.ReactNode }) {
+export const ScreenWrapper = ({ children }: { children: React.ReactNode }) => {
   const [height, setHeight] = useState<number | null>(null);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ export function ScreenWrapper({ children }: { children: React.ReactNode }) {
       {children}
     </div>
   );
-}
+};

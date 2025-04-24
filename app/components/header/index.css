@@ -20,12 +20,23 @@
   cursor: default !important;
 }
 
-@media screen and (max-width: 768px) {
+.tablet-header-container {
+  justify-content: center;
+}
+.tablet-header-container > span {
+  font-size: 4.5rem;
+  padding: 15px;
+}
+
+@media screen and (max-width: 767px) {
   .header-container {
     justify-content: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 15px;
   }
-  .header-container > span {
+  .tablet-header-container > span {
     font-size: 3rem;
-    padding: 15;
+    padding: 15px;
   }
 }
