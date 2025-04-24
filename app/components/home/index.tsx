@@ -5,22 +5,22 @@ import { Button } from "../button";
 import { debounce } from "~/utility/utils";
 
 export const Home = ({ setNextSlide }: { setNextSlide: Function }) => {
-  // const [size, setSize] = useState(0);
+  const [size, setSize] = useState(0);
 
-  // useEffect(() => {
-  //   const handleResize = debounce(() => {
-  //     setSize(window.innerWidth);
-  //   }, 100);
-  //   window.addEventListener("resize", () => handleResize());
-  //   return () => {
-  //     window.removeEventListener("resize", () => handleResize());
-  //     handleResize.cancel();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      setSize(window.innerWidth);
+    }, 1000);
+    window.addEventListener("resize", () => handleResize());
+    return () => {
+      window.removeEventListener("resize", () => handleResize());
+      handleResize.cancel();
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   // canvasDots();
-  // }, [size]);
+  useEffect(() => {
+    canvasDots();
+  }, [size]);
 
   return (
     <div id="home" className="home">
