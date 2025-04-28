@@ -3,22 +3,20 @@ import { isMobile } from "~/utility/utils";
 
 export const canvasDots = () => {
   const canvas = document.querySelector("canvas") as HTMLCanvasElement;
-  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+  const ctx = canvas?.getContext("2d");
 
   if (!canvas || !ctx) return () => {};
+
+  const isOnMobile = isMobile();
+  const NUM_DOTS = isOnMobile ? 80 : 600;
+  const REVEAL_RADIUS = 500;
+  const color = "#228b22";
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   canvas.style.display = "block";
 
   const dots: DotType[] = [];
-  const NUM_DOTS = isMobile() ? 200 : 600;
-  const REVEAL_RADIUS = 500;
-  const color = "#228b22";
-
-  ctx.fillStyle = color;
-  ctx.strokeStyle = color;
-
   for (let i = 0; i < NUM_DOTS; i++) {
     dots.push({
       x: Math.random() * canvas.width,
@@ -37,27 +35,35 @@ export const canvasDots = () => {
     mouseY = e.clientY;
   };
 
-  if (!isMobile()) {
+  if (!isOnMobile) {
     window.addEventListener("mousemove", handleMouseMove);
   }
 
   let animationFrameId: number;
+  let lastTime = 0;
+  const fps = 30;
+  const interval = 1000 / fps;
 
-  const animate = () => {
+  const animate = (time: number) => {
+    animationFrameId = requestAnimationFrame(animate);
+
+    if (time - lastTime < interval) return;
+    lastTime = time;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let dot of dots) {
+    for (const dot of dots) {
       dot.x += dot.vx;
       dot.y += dot.vy;
 
       if (dot.x <= 0 || dot.x >= canvas.width) dot.vx *= -1;
       if (dot.y <= 0 || dot.y >= canvas.height) dot.vy *= -1;
 
-      if (isMobile()) {
-        ctx.beginPath();
+      ctx.beginPath();
+
+      if (isOnMobile) {
         ctx.globalAlpha = 1;
-        ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillStyle = color;
       } else {
         const dx = dot.x - mouseX;
         const dy = dot.y - mouseY;
@@ -65,23 +71,26 @@ export const canvasDots = () => {
 
         if (dist < REVEAL_RADIUS) {
           const alpha = Math.pow(1 - dist / REVEAL_RADIUS, 2);
-          ctx.beginPath();
           ctx.globalAlpha = alpha;
-          ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.fillStyle = color;
+        } else {
+          ctx.globalAlpha = 0; 
+          continue;
         }
       }
+
+      ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    ctx.globalAlpha = 1;
-    animationFrameId = requestAnimationFrame(animate);
+    ctx.globalAlpha = 1; 
   };
 
-  animate();
+  animationFrameId = requestAnimationFrame(animate);
 
   return () => {
     cancelAnimationFrame(animationFrameId);
-    if (!isMobile()) {
+    if (!isOnMobile) {
       window.removeEventListener("mousemove", handleMouseMove);
     }
   };
