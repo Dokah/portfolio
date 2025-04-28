@@ -1,12 +1,11 @@
 import { DotType } from "~/types/backgroundCanvas.type";
 import { isMobile } from "~/utility/utils";
 
-
 export const canvasDots = () => {
   const canvas = document.querySelector("canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-  if (!canvas || !ctx) return;
+  if (!canvas || !ctx) return () => {};
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -15,8 +14,8 @@ export const canvasDots = () => {
   const dots: DotType[] = [];
   const NUM_DOTS = isMobile() ? 200 : 600;
   const REVEAL_RADIUS = 500;
-
   const color = "#228b22";
+
   ctx.fillStyle = color;
   ctx.strokeStyle = color;
 
@@ -30,41 +29,40 @@ export const canvasDots = () => {
     });
   }
 
-  // Start offscreen
   let mouseX = -9999;
   let mouseY = -9999;
 
-if (!isMobile()){
-  window.addEventListener("mousemove", (e: MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-  });
-}
+  };
+
+  if (!isMobile()) {
+    window.addEventListener("mousemove", handleMouseMove);
+  }
+
+  let animationFrameId: number;
 
   const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+
     for (let dot of dots) {
-      // Update dot position
       dot.x += dot.vx;
       dot.y += dot.vy;
-  
-      // Bounce off edges
+
       if (dot.x <= 0 || dot.x >= canvas.width) dot.vx *= -1;
       if (dot.y <= 0 || dot.y >= canvas.height) dot.vy *= -1;
-  
+
       if (isMobile()) {
-        // Mobile
         ctx.beginPath();
         ctx.globalAlpha = 1;
         ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
         ctx.fill();
       } else {
-        // Desktop
         const dx = dot.x - mouseX;
         const dy = dot.y - mouseY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-  
+
         if (dist < REVEAL_RADIUS) {
           const alpha = Math.pow(1 - dist / REVEAL_RADIUS, 2);
           ctx.beginPath();
@@ -74,10 +72,17 @@ if (!isMobile()){
         }
       }
     }
-  
-    ctx.globalAlpha = 1; // reset
-    requestAnimationFrame(animate);
+
+    ctx.globalAlpha = 1;
+    animationFrameId = requestAnimationFrame(animate);
   };
 
   animate();
+
+  return () => {
+    cancelAnimationFrame(animationFrameId);
+    if (!isMobile()) {
+      window.removeEventListener("mousemove", handleMouseMove);
+    }
+  };
 };

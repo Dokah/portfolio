@@ -105,7 +105,10 @@ export default function Screen() {
   }, []);
 
   useEffect(() => {
-    canvasDots();
+    const cleanup = canvasDots();
+    return () => {
+      cleanup();
+    };
   }, [size]);
 
   return (
