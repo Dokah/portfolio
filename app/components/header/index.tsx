@@ -11,7 +11,7 @@ export const Header = ({
   setCurrentSlide: Function;
   setHasScrolled: Function;
 }) => {
-  const slides = ["HOME", "TECH", "PROJECTS", "CONTACT"];
+  const slides = ["HOME", "STACK", "PROJECTS", "CONTACT"];
 
   const [isMobileClient, setIsMobileClient] = useState<boolean | null>(null);
 
