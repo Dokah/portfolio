@@ -4,8 +4,6 @@ body {
   background-color: black;
   font-family: montserrat, sans-serif;
   color: #fafafa;
-  padding-left: 15px;
-  padding-right: 15px;
   height: 100% !important;
   margin: 0 !important;
 }
@@ -23,6 +21,8 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .content {
