@@ -1,12 +1,63 @@
+import { CustomCarousel } from "../carousel";
+import ReactLogo from "../../assets/react.svg";
+import NodeLogo from "../../assets/node.svg";
+import NextLogo from "../../assets/next.svg";
+import RemixLogo from "../../assets/remix.svg";
+import PSQLLogo from "../../assets/psql.svg";
+import AWSLogo from "../../assets/aws.svg";
+import LinuxLogo from "../../assets/linux.svg";
+import DockerLogo from "../../assets/docker.svg";
+import Pm2Logo from "../../assets/pm2.svg";
+import GitLogo from "../../assets/git.svg";
+import RedisLogo from "../../assets/redis.svg";
+import TypescriptLogo from "../../assets/typescript.svg";
+import CloudflareLogo from "../../assets/cloudflare.svg";
 import "./index.css";
+
+const codingStack = [
+  { src: TypescriptLogo, name: "Typescript" },
+  { src: ReactLogo, name: "ReactJS" },
+  { src: NodeLogo, name: "NodeJS" },
+  { src: NextLogo, name: "NextJS" },
+  { src: RemixLogo, name: "RemixJS" },
+  { src: PSQLLogo, name: "PSQL" },
+];
+
+const deploymentStack = [
+  { src: AWSLogo, name: "AWS" },
+  { src: LinuxLogo, name: "Linux" },
+  { src: DockerLogo, name: "Docker" },
+  { src: Pm2Logo, name: "PM2" },
+  { src: GitLogo, name: "Git" },
+  { src: RedisLogo, name: "Redis" },
+  { src: CloudflareLogo, name: "CloudFlare" },
+];
 
 export const Tech = () => {
   return (
     <div className="tech">
-      <img
-        src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmIybDl0OGF0ZHZ6NmYwZ25lcXp2Z2h6bnpxZ3IyeW50ZHBlMnAxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vR1dPIYzQmkRzLZk2w/giphy.gif"
-        alt="under-construction"
-      ></img>
+      <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
+        {codingStack.map((logo, index) => (
+          <div className="hex" key={index}>
+            <img
+              src={logo.src}
+              alt={logo.name}
+              style={{ width: "60%", height: "auto" }}
+            />
+          </div>
+        ))}
+      </CustomCarousel>
+      <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
+        {deploymentStack.map((logo, index) => (
+          <div className="hex" key={index}>
+            <img
+              src={logo.src}
+              alt={logo.name}
+              style={{ width: "60%", height: "auto" }}
+            />
+          </div>
+        ))}
+      </CustomCarousel>
     </div>
   );
 };

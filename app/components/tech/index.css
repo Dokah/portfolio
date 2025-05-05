@@ -6,6 +6,27 @@ h1 {
   text-align: center;
 }
 
+.tech {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+  height: 100%;
+  width: 100%;
+  gap: 7rem;
+}
+
+.hex {
+  width: 150px;
+  height: 172.6px;
+  background: #222;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (max-width: 768px) {
   img {
     width: 300px;
