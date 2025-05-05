@@ -34,12 +34,12 @@ h1 {
   }
 
   .hex {
-    width: 60px;
-    height: 82.6px;
+    width: 82px;
+    height: 92.6px;
   }
 
   .tech {
-    width: 100vw;
-    gap: 3rem;
+    width: 100vw !important;
+    gap: 5rem;
   }
 }
