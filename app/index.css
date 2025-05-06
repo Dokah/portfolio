@@ -2,7 +2,7 @@ html,
 body {
   overflow: hidden;
   background-color: black;
-  font-family: montserrat, sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #fafafa;
   height: 100% !important;
   margin: 0 !important;
@@ -31,4 +31,39 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/app/assets/fonts/Roboto-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/app/assets/fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/app/assets/fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/app/assets/fonts/Roboto-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/app/assets/fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
