@@ -38,5 +38,7 @@
   .tablet-header-container > span {
     font-size: 3rem;
     padding: 15px;
+    font-weight: 300;
+    background-color: black;
   }
 }
