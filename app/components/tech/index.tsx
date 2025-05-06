@@ -3,7 +3,7 @@ import ReactLogo from "../../assets/react.svg";
 import NodeLogo from "../../assets/node.svg";
 import NextLogo from "../../assets/next.svg";
 import JestLogo from "../../assets/jest.svg";
-import GitlabLogo from "../../assets/gitLab.svg";
+import GitlabLogo from "../../assets/gitlab.svg";
 import RemixLogo from "../../assets/remix.svg";
 import PSQLLogo from "../../assets/psql.svg";
 import AWSLogo from "../../assets/aws.svg";
