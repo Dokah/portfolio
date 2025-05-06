@@ -51,32 +51,16 @@ const mobileStack = [
 
 export const Tech = () => {
   return (
-    <div className="tech">
-      <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
-        {codingStack.map((logo, index) => (
-          <div className="hex" key={index}>
-            <img
-              src={logo.src}
-              alt={logo.name}
-              style={{ width: "60%", height: "50%" }}
-            />
-          </div>
-        ))}
-      </CustomCarousel>
-      <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
-        {deploymentStack.map((logo, index) => (
-          <div className="hex" key={index}>
-            <img
-              src={logo.src}
-              alt={logo.name}
-              style={{ width: "60%", height: "50%" }}
-            />
-          </div>
-        ))}
-      </CustomCarousel>
-      {isMobile() && (
+    <div className="tech-container">
+      {!isMobile() && (
+        <div className="tech-title">
+          <h1 style={{ fontWeight: 100 }}>Technologies That Power My Work</h1>
+        </div>
+      )}
+
+      <div className="tech">
         <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
-          {mobileStack.map((logo, index) => (
+          {codingStack.map((logo, index) => (
             <div className="hex" key={index}>
               <img
                 src={logo.src}
@@ -86,7 +70,31 @@ export const Tech = () => {
             </div>
           ))}
         </CustomCarousel>
-      )}
+        <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
+          {deploymentStack.map((logo, index) => (
+            <div className="hex" key={index}>
+              <img
+                src={logo.src}
+                alt={logo.name}
+                style={{ width: "60%", height: "50%" }}
+              />
+            </div>
+          ))}
+        </CustomCarousel>
+        {isMobile() && (
+          <CustomCarousel speed={40} pauseOnHover duplicateCount={10} gap={16}>
+            {mobileStack.map((logo, index) => (
+              <div className="hex" key={index}>
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  style={{ width: "60%", height: "50%" }}
+                />
+              </div>
+            ))}
+          </CustomCarousel>
+        )}
+      </div>
     </div>
   );
 };

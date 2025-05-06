@@ -15,7 +15,7 @@ body {
 
 .header,
 .footer {
-  height: 10dvh;
+  min-height: 10dvh;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
