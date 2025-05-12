@@ -3,6 +3,7 @@ import {
   ProjectComponentInterface,
 } from "../projectComponent";
 import portfolioPicture from "../../assets/portfolio.png";
+import "./index.css";
 
 export const Projects = () => {
   const projects: ProjectComponentInterface[] = [

@@ -26,11 +26,7 @@ export const ProjectComponent = ({
           className="project-component-image"
         />
       </div>
-      <div className="project-component-title">
-        <a href={projectLinkURL} target="_blank" rel="noopener noreferrer">
-          {projectTitle}
-        </a>
-      </div>
+      <div className="project-component-title">{projectTitle}</div>
       <div className="project-component-description">
         <p>{projectDescription}</p>
       </div>
