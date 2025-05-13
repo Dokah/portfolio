@@ -1,19 +1,45 @@
-@media screen and (max-width: 768px) {
-  img {
-    width: 300px;
-    height: 300px;
-  }
-}
-
 .projects-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.projects-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.indicator-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+  justify-content: center;
+  align-items: center;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: #6b7280;
+  transition: background-color 0.3s ease;
+}
+
 @media screen and (max-width: 768px) {
+  img {
+    width: 300px;
+    height: 300px;
+  }
+
   .projects-container {
     max-height: 80%;
     min-height: 80%;
+  }
+
+  .projects-wrapper {
+    max-height: 100%;
+    min-height: 100%;
   }
 }

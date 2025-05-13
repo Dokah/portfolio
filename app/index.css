@@ -8,6 +8,10 @@ body {
   margin: 0 !important;
 }
 
+.perspective {
+  perspective: 1000px;
+}
+
 .screen {
   display: flex;
   flex-direction: column;
