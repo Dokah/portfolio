@@ -85,29 +85,33 @@ export const Projects = () => {
   return (
     <div className="projects-container">
       <div className="projects-wrapper">
-        <div className="project-cube-wrapper" {...swipeHandlers}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              className="project-cube"
-              initial="enter"
-              animate="center"
-              exit="exit"
-              variants={cubeVariants}
-              style={{
-                transformStyle: "preserve-3d",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <ProjectComponent
+        <div className="arrows-wrapper">
+          <span onClick={handlePrevSwipe} className="arrow-component left" />
+          <div className="project-cube-wrapper" {...swipeHandlers}>
+            <AnimatePresence mode="wait">
+              <motion.div
                 key={index}
-                projectTitle={projects[index].projectTitle}
-                projectDescription={projects[index].projectDescription}
-                projectPictureURL={projects[index].projectPictureURL}
-                projectLinkURL={projects[index].projectLinkURL}
-              />
-            </motion.div>
-          </AnimatePresence>
+                className="project-cube"
+                initial="enter"
+                animate="center"
+                exit="exit"
+                variants={cubeVariants}
+                style={{
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <ProjectComponent
+                  key={index}
+                  projectTitle={projects[index].projectTitle}
+                  projectDescription={projects[index].projectDescription}
+                  projectPictureURL={projects[index].projectPictureURL}
+                  projectLinkURL={projects[index].projectLinkURL}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <span onClick={handleNextSwipe} className="arrow-component right" />
         </div>
 
         <div className="indicator-container">
