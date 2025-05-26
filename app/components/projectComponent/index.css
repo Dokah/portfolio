@@ -84,6 +84,7 @@
   .project-component-container {
     max-width: 400px;
     padding: 12px;
+    height: 450px !important;
   }
 
   .project-component-title {
@@ -101,6 +102,7 @@
     max-width: 300px;
     min-height: 80% !important;
     padding: 10px;
+    height: 450px !important;
   }
 
   .project-component-title {

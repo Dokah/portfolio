@@ -9,8 +9,25 @@ import { Projects } from "~/components/projects";
 import { ScreenWrapper } from "~/components/screenWrapper/ScreenWrapper";
 import { canvasDots } from "~/components/backgroundCanvas";
 import { debounce } from "~/utility/utils";
+import portfolioPicture from "../assets/portfolio.png";
+import pythonPicture from "../assets/python.jpg";
 
 const slides = [Home, Tech, Projects, Contact];
+
+export function links() {
+  return [
+    {
+      rel: "preload",
+      as: "image",
+      href: pythonPicture,
+    },
+    {
+      rel: "preload",
+      as: "image",
+      href: portfolioPicture,
+    },
+  ];
+}
 
 export default function Screen() {
   const [currentSlide, setCurrentSlide] = useState(0);
