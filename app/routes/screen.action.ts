@@ -34,7 +34,8 @@ export async function action({ request }: ActionFunctionArgs) {
   } catch (error) {
     return {
       success: false,
-      errors: { message: "Failed to send email. Please try again later." },
+      // errors: { message: "Failed to send email. Please try again later." },
+      errors: { message: error },
     };
   }
 }
