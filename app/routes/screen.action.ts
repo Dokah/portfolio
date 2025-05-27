@@ -7,7 +7,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+  sgMail.setApiKey(import.meta.env.SENDGRID_API_KEY!);
 
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Name is required";
@@ -23,13 +23,13 @@ export async function action({ request }: ActionFunctionArgs) {
     return { success: false, errors: { message: "All fields are required." } };
   }
 const data = {
-      to: process.env.SENDGRID_TO_EMAIL!,
-      from: process.env.SENDGRID_FROM_EMAIL!,
+      to: import.meta.env.SENDGRID_TO_EMAIL!,
+      from: import.meta.env.SENDGRID_FROM_EMAIL!,
       subject: "New Inquiry from Portfolio",
       text: `Name: ${name}\nEmail: ${email}\nMessage: \n${message}`,
     }
-    console.log("TO:", process.env.SENDGRID_TO_EMAIL);
-console.log("FROM:", process.env.SENDGRID_FROM_EMAIL);
+    console.log("TO:", import.meta.env.SENDGRID_TO_EMAIL);
+console.log("FROM:", import.meta.env.SENDGRID_FROM_EMAIL);
   try {
     await sgMail.send(data)
     return { success: true };
