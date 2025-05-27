@@ -19,10 +19,12 @@
     "@remix-run/serve": "*",
     "framer-motion": "^12.6.3",
     "isbot": "^4.1.0",
+    "nodemailer": "^7.0.3",
     "react-swipeable": "^7.0.2"
   },
   "devDependencies": {
     "@remix-run/dev": "*",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",

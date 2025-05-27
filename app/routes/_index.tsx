@@ -9,6 +9,8 @@ import { Projects } from "~/components/projects";
 import { ScreenWrapper } from "~/components/screenWrapper/ScreenWrapper";
 import { canvasDots } from "~/components/backgroundCanvas";
 import { debounce } from "~/utility/utils";
+import { ActionFunctionArgs, json } from "@remix-run/node";
+import nodemailer from "nodemailer";
 
 const slides = [Home, Tech, Projects, Contact];
 export function links() {
@@ -69,6 +71,49 @@ export function links() {
       crossOrigin: "anonymous",
     },
   ];
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const name = formData.get("name")?.toString().trim();
+  const email = formData.get("email")?.toString().trim();
+  const message = formData.get("message")?.toString().trim();
+
+  const errors: Record<string, string> = {};
+  if (!name) errors.name = "Name is required";
+  if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email))
+    errors.email = "Valid email is required";
+  if (!message) errors.message = "Message is required";
+
+  if (Object.keys(errors).length > 0) {
+    return json({ success: false, errors });
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: `"${name}" <${email}>`,
+    to: process.env.EMAIL_RECEIVER,
+    subject: "New Contact Form Message",
+    text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    return json({ success: true });
+  } catch (error) {
+    console.error("Email send error:", error);
+    return json({
+      success: false,
+      errors: { message: "Failed to send email. Please try again later." },
+    });
+  }
 }
 
 export default function Screen() {
