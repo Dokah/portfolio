@@ -5,4 +5,9 @@ import { netlifyPlugin } from "@netlify/remix-edge-adapter/plugin";
 
 export default defineConfig({
   plugins: [remix(), netlifyPlugin(), tsconfigPaths()],
+  build: {
+    rollupOptions: {
+      external: ["node:crypto"]
+    }
+  }
 });
