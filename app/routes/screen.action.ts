@@ -1,6 +1,5 @@
 import { json, type ActionFunctionArgs } from "@remix-run/server-runtime";
-import { t } from "node_modules/framer-motion/dist/types.d-CtuPurYT";
-const sgMail = require("@sendgrid/mail");
+import sgMail from "@sendgrid/mail";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -8,7 +7,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Name is required";
