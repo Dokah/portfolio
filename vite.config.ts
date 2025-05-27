@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [remix(), netlifyPlugin(), tsconfigPaths()],
   build: {
     rollupOptions: {
-      external: ["node:crypto"]
+      external: ["node:crypto, node:fs", "node:path", "node:stream"],
     }
   }
 });
