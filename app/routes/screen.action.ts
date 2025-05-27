@@ -1,4 +1,4 @@
-import { json, type ActionFunctionArgs } from "@remix-run/server-runtime";
+import { type ActionFunctionArgs } from "@remix-run/server-runtime";
 import sgMail from "@sendgrid/mail";
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -16,32 +16,25 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!message) errors.message = "Message is required";
 
   if (Object.keys(errors).length > 0) {
-    return json({ success: false, errors });
+    return { success: false, errors };
   }
 
   if(name === undefined || email === undefined || message === undefined) {
-    return json({ success: false, errors: { message: "All fields are required." } });
+    return { success: false, errors: { message: "All fields are required." } };
   }
 
   try {
-    // await sendEmail({ name, email, message });
     await sgMail.send({
-      to: "dominik.kukovec33@gmail.com",
-      from:email,
-      subject: "Message from Contact Form",
-      text: message
+      to: process.env.SENDGRID_TO_EMAIL!,
+      from: process.env.SENDGRID_FROM_EMAIL!,
+      subject: "New Inquiry from Portfolio",
+      text: `Name: ${name}\nEmail: ${email}\nMessage: \n${message}`,
     })
-    return json({ success: true });
+    return { success: true };
   } catch (error) {
-    //@ts-ignore
-    console.error("Email send error:", error?.message || error);
-    //@ts-ignore
-    console.log("Email send error:", error?.message || error);
-    return json({
+    return {
       success: false,
-    //@ts-ignore
-       errors: { message: error?.message || error },
-      // errors: { message: "Failed to send email. Please try again later." },
-    });
+      errors: { message: "Failed to send email. Please try again later." },
+    };
   }
 }
