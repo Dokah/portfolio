@@ -36,7 +36,7 @@ const data = {
       success: false,
       // errors: { message: "Failed to send email. Please try again later." },
       //@ts-ignore
-      errors: { message: error },
+      errors: { message: `${JSON.stringify(data)} ${error?.message} ${error}` },
     };
   }
 }
