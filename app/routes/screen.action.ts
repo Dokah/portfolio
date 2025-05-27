@@ -34,7 +34,9 @@ const data = {
   } catch (error) {
     return {
       success: false,
-      errors: { message: "Failed to send email. Please try again later." },
+      // errors: { message: "Failed to send email. Please try again later." },
+      //@ts-ignore
+      errors: { message: error },
     };
   }
 }
