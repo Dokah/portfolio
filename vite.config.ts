@@ -5,9 +5,8 @@ import { netlifyPlugin } from "@netlify/remix-edge-adapter/plugin";
 
 export default defineConfig({
   plugins: [remix(), netlifyPlugin(), tsconfigPaths()],
-  build: {
-    rollupOptions: {
-      external: ["node:crypto, node:fs", "node:path", "node:stream"],
-    }
-  }
+  ssr: {
+    external: ["@remix-run/node", "nodemailer"],
+    noExternal: [], 
+  },
 });
