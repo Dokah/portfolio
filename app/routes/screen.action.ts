@@ -24,6 +24,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
+    console.log(process.env.SENDGRID_TO_EMAIL, process.env.SENDGRID_FROM_EMAIL);
     await sgMail.send({
       to: process.env.SENDGRID_TO_EMAIL!,
       from: process.env.SENDGRID_FROM_EMAIL!,
