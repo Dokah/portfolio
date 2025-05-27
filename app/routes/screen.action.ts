@@ -1,11 +1,14 @@
 import { json, type ActionFunctionArgs } from "@remix-run/server-runtime";
-import { sendEmail } from "../utility/send-email.server";
+import { t } from "node_modules/framer-motion/dist/types.d-CtuPurYT";
+const sgMail = require("@sendgrid/mail");
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const name = formData.get("name")?.toString().trim();
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Name is required";
@@ -22,7 +25,13 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    await sendEmail({ name, email, message });
+    // await sendEmail({ name, email, message });
+    await sgMail.send({
+      to: "dominik.kukovec33@gmail.com",
+      from:email,
+      subject: "Message from Contact Form",
+      text: message
+    })
     return json({ success: true });
   } catch (error) {
     //@ts-ignore
