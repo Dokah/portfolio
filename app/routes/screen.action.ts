@@ -25,11 +25,14 @@ export async function action({ request }: ActionFunctionArgs) {
     await sendEmail({ name, email, message });
     return json({ success: true });
   } catch (error) {
-    console.error("Email send error:", error);
-    console.log("Email send error:", error);
+    //@ts-ignore
+    console.error("Email send error:", error?.message || error);
+    //@ts-ignore
+    console.log("Email send error:", error?.message || error);
     return json({
       success: false,
-       errors: { message: error },
+    //@ts-ignore
+       errors: { message: error?.message || error },
       // errors: { message: "Failed to send email. Please try again later." },
     });
   }
