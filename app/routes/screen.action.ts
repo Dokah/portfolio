@@ -26,9 +26,11 @@ export async function action({ request }: ActionFunctionArgs) {
     return json({ success: true });
   } catch (error) {
     console.error("Email send error:", error);
+    console.log("Email send error:", error);
     return json({
       success: false,
-      errors: { message: "Failed to send email. Please try again later." },
+       errors: { message: error },
+      // errors: { message: "Failed to send email. Please try again later." },
     });
   }
 }

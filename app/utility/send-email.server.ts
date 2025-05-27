@@ -5,6 +5,8 @@ export async function sendEmail({ name, email, message }: {
   email: string;
   message: string;
 }) {
+    console.log(process.env.EMAIL_USER, 'user');
+      console.log(process.env.EMAIL_PASS, 'pass');
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
