@@ -22,22 +22,21 @@ export async function action({ request }: ActionFunctionArgs) {
   if(name === undefined || email === undefined || message === undefined) {
     return { success: false, errors: { message: "All fields are required." } };
   }
-
-  try {
-    console.log(process.env.SENDGRID_TO_EMAIL, process.env.SENDGRID_FROM_EMAIL);
-    await sgMail.send({
+const data = {
       to: process.env.SENDGRID_TO_EMAIL!,
       from: process.env.SENDGRID_FROM_EMAIL!,
       subject: "New Inquiry from Portfolio",
       text: `Name: ${name}\nEmail: ${email}\nMessage: \n${message}`,
-    })
+    }
+  try {
+    await sgMail.send(data)
     return { success: true };
   } catch (error) {
     return {
       success: false,
       // errors: { message: "Failed to send email. Please try again later." },
       //@ts-ignore
-      errors: { message: error?.message },
+      errors: { message: data },
     };
   }
 }
