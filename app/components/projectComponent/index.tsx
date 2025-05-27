@@ -1,5 +1,5 @@
 import "./index.css";
-import githubLogoURL from "../../assets/github.svg";
+import githubLogoURL from "/assets/github.svg";
 
 export interface ProjectComponentInterface {
   projectTitle: string;

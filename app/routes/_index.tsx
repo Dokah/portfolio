@@ -9,22 +9,64 @@ import { Projects } from "~/components/projects";
 import { ScreenWrapper } from "~/components/screenWrapper/ScreenWrapper";
 import { canvasDots } from "~/components/backgroundCanvas";
 import { debounce } from "~/utility/utils";
-import portfolioPicture from "../assets/portfolio.png";
-import pythonPicture from "../assets/python.jpg";
 
 const slides = [Home, Tech, Projects, Contact];
-
 export function links() {
   return [
+    { rel: "preload", as: "image", href: "/assets/python.jpg" },
+    { rel: "preload", as: "image", href: "/assets/portfolio.png" },
+    { rel: "preload", as: "image", href: "/assets/github.svg" },
+    { rel: "preload", as: "image", href: "/assets/linkedin.svg" },
+    { rel: "preload", as: "image", href: "/assets/aws.svg" },
+    { rel: "preload", as: "image", href: "/assets/cloudflare.svg" },
+    { rel: "preload", as: "image", href: "/assets/docker.svg" },
+    { rel: "preload", as: "image", href: "/assets/git.svg" },
+    { rel: "preload", as: "image", href: "/assets/gitlab.svg" },
+    { rel: "preload", as: "image", href: "/assets/jest.svg" },
+    { rel: "preload", as: "image", href: "/assets/linux.svg" },
+    { rel: "preload", as: "image", href: "/assets/next.svg" },
+    { rel: "preload", as: "image", href: "/assets/node.svg" },
+    { rel: "preload", as: "image", href: "/assets/pm2.svg" },
+    { rel: "preload", as: "image", href: "/assets/psql.svg" },
+    { rel: "preload", as: "image", href: "/assets/react.svg" },
+    { rel: "preload", as: "image", href: "/assets/redis.svg" },
+    { rel: "preload", as: "image", href: "/assets/remix.svg" },
+    { rel: "preload", as: "image", href: "/assets/typescript.svg" },
+    { rel: "preload", as: "image", href: "/assets/whiteArrow.svg" },
     {
       rel: "preload",
-      as: "image",
-      href: pythonPicture,
+      as: "font",
+      href: "/fonts/Roboto-Thin.ttf",
+      type: "font/ttf",
+      crossOrigin: "anonymous",
     },
     {
       rel: "preload",
-      as: "image",
-      href: portfolioPicture,
+      as: "font",
+      href: "/fonts/Roboto-Light.ttf",
+      type: "font/ttf",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/Roboto-Regular.ttf",
+      type: "font/ttf",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/Roboto-SemiBold.ttf",
+      type: "font/ttf",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/Roboto-Bold.ttf",
+      type: "font/ttf",
+      crossOrigin: "anonymous",
     },
   ];
 }

@@ -2,8 +2,8 @@ import {
   ProjectComponent,
   ProjectComponentInterface,
 } from "../projectComponent";
-import portfolioPicture from "../../assets/portfolio.png";
-import pythonPicture from "../../assets/python.jpg";
+import portfolioPicture from "/assets/portfolio.png";
+import pythonPicture from "/assets/python.jpg";
 import "./index.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
