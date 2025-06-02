@@ -1,14 +1,19 @@
 import { type ActionFunctionArgs } from "@remix-run/server-runtime";
 import sgMail from "@sendgrid/mail";
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ request, context }: ActionFunctionArgs) {
   const formData = await request.formData();
   const name = formData.get("name")?.toString().trim();
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
-  const sendgridApiKey = process.env.SENDGRID_API_KEY;
-  const sendgridToEmail = process.env.SENDGRID_TO_EMAIL;
-  const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL;
+  //@ts-ignore
+  const sendgridApiKey = context.env.SENDGRID_API_KEY;
+  //@ts-ignore
+
+  const sendgridToEmail = context.env.SENDGRID_TO_EMAIL;
+  //@ts-ignore
+  
+  const sendgridFromEmail = context.env.SENDGRID_FROM_EMAIL;
 
   if (!sendgridApiKey?.startsWith("SG.")) {
     console.warn("Invalid SendGrid API key.");
