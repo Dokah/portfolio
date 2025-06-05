@@ -7,13 +7,13 @@ export async function action({ request, context }: ActionFunctionArgs) {
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
   //@ts-ignore
-  const sendgridApiKey = process.env.SENDGRID_API_KEY;
+  const sendgridApiKey = context.env.SENDGRID_API_KEY;
   //@ts-ignore
 
-  const sendgridToEmail = process.env.SENDGRID_TO_EMAIL;
+  const sendgridToEmail = context.env.SENDGRID_TO_EMAIL;
   //@ts-ignore
   
-  const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL;
+  const sendgridFromEmail = context.env.SENDGRID_FROM_EMAIL;
 
   console.log(sendgridApiKey,sendgridFromEmail,sendgridToEmail, "VARIABLES")
   
