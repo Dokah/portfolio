@@ -6,6 +6,9 @@ export async function action({ request, context }: ActionFunctionArgs) {
   const name = formData.get("name")?.toString().trim();
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
+  
+  console.log(context, "CONTEXT");
+  console.log(context.env, "ENV");
   //@ts-ignore
   const sendgridApiKey = context.env.SENDGRID_API_KEY;
   //@ts-ignore
@@ -15,8 +18,6 @@ export async function action({ request, context }: ActionFunctionArgs) {
   
   const sendgridFromEmail = context.env.SENDGRID_FROM_EMAIL;
 
-  console.log(context, "CONTEXT");
-  console.log(context.env, "ENV");
   console.log(sendgridApiKey,sendgridFromEmail,sendgridToEmail, "VARIABLES")
   
   if (!sendgridApiKey?.startsWith("SG.")) {
