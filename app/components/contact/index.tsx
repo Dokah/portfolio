@@ -1,6 +1,7 @@
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
+import { isMobile } from "~/utility/utils";
 
 type ActionData = {
   success?: boolean;
@@ -36,9 +37,12 @@ export function Contact() {
 
   return (
     <div className="contact-container">
-      <div className="contact-title">
-        <h1>Let's get in touch</h1>
-      </div>
+      {!isMobile() && (
+        <div className="contact-title">
+          <h1>Let's get in touch</h1>
+        </div>
+      )}
+
       <div className="contact-form-container">
         <Form method="post" className="contact-form" ref={formRef}>
           <label htmlFor="name">Name</label>

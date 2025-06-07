@@ -41,11 +41,7 @@ export const Header = ({
           </span>
         ))
       ) : (
-        <span>
-          {currentSlide !== 0 &&
-            slides[currentSlide] !== "CONTACT" &&
-            slides[currentSlide]}
-        </span>
+        <span>{currentSlide !== 0 && slides[currentSlide]}</span>
       )}
     </div>
   );
