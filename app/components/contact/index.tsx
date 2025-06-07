@@ -35,37 +35,41 @@ export function Contact() {
   }, [actionData, wasSubmitted]);
 
   return (
-    <div className="contact-form-container">
-      <h1>Let's get in touch</h1>
-      <Form method="post" className="contact-form" ref={formRef}>
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" required />
-        {actionData?.errors?.name && (
-          <p className="error">{actionData.errors.name}</p>
+    <div className="contact-container">
+      <div className="contact-title">
+        <h1>Let's get in touch</h1>
+      </div>
+      <div className="contact-form-container">
+        <Form method="post" className="contact-form" ref={formRef}>
+          <label htmlFor="name">Name</label>
+          <input type="text" id="name" name="name" required />
+          {actionData?.errors?.name && (
+            <p className="error">{actionData.errors.name}</p>
+          )}
+
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" name="email" required />
+          {actionData?.errors?.email && (
+            <p className="error">{actionData.errors.email}</p>
+          )}
+
+          <label htmlFor="message">Message</label>
+          <textarea id="message" name="message" rows={5} required />
+          {actionData?.errors?.message && (
+            <p className="error">{actionData.errors.message}</p>
+          )}
+
+          <button type="submit" disabled={navigation.state === "submitting"}>
+            {navigation.state === "submitting" ? "Sending..." : "Send Message"}
+          </button>
+        </Form>
+
+        {showToast && (
+          <div onClick={() => setShowToast(false)} className="toast">
+            Message sent!
+          </div>
         )}
-
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" required />
-        {actionData?.errors?.email && (
-          <p className="error">{actionData.errors.email}</p>
-        )}
-
-        <label htmlFor="message">Message</label>
-        <textarea id="message" name="message" rows={5} required />
-        {actionData?.errors?.message && (
-          <p className="error">{actionData.errors.message}</p>
-        )}
-
-        <button type="submit" disabled={navigation.state === "submitting"}>
-          {navigation.state === "submitting" ? "Sending..." : "Send Message"}
-        </button>
-      </Form>
-
-      {showToast && (
-        <div onClick={() => setShowToast(false)} className="toast">
-          Message sent!
-        </div>
-      )}
+      </div>
     </div>
   );
 }
