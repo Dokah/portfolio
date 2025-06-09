@@ -26,6 +26,7 @@
 .tablet-header-container > span {
   font-size: 4.5rem;
   padding: 15px;
+  font-weight: 100;
 }
 
 @media screen and (max-width: 767px) {
@@ -34,11 +35,12 @@
     flex-wrap: wrap;
     box-sizing: border-box;
     padding: 15px;
+    gap: 1.5rem;
   }
   .tablet-header-container > span {
-    font-size: 3rem;
+    font-size: 3.5rem;
     padding: 15px;
-    font-weight: 300;
+    font-weight: 100;
     background-color: black;
   }
 }
