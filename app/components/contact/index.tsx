@@ -1,4 +1,9 @@
-import { Form, useActionData, useNavigation } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  useSearchParams,
+} from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { isMobile } from "~/utility/utils";
@@ -20,6 +25,8 @@ export function Contact() {
   const [showToast, setShowToast] = useState(false);
   const [wasSubmitted, setWasSubmitted] = useState(false);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     if (navigation.state === "submitting") {
       setWasSubmitted(true);
@@ -32,6 +39,7 @@ export function Contact() {
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
       setWasSubmitted(false);
+      setSearchParams({});
     }
   }, [actionData, wasSubmitted]);
 
