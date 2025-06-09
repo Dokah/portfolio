@@ -6,6 +6,18 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import "./index.css";
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Dominik | Fullstack Web Developer" },
+    {
+      name: "description",
+      content:
+        "Creative full-stack web developer portfolio built with Remix.js. Explore projects, design systems, and modern web solutions showcasing performance and accessibility.",
+    },
+  ];
+};
 
 export default function App() {
   return (
