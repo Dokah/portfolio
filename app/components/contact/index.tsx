@@ -58,7 +58,13 @@ export function Contact() {
           )}
 
           <label htmlFor="message">Message</label>
-          <textarea id="message" name="message" rows={5} required />
+          <textarea
+            style={{ resize: "none" }}
+            id="message"
+            name="message"
+            rows={5}
+            required
+          />
           {actionData?.errors?.message && (
             <p className="error">{actionData.errors.message}</p>
           )}
