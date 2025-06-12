@@ -7,6 +7,16 @@
   height: 100%;
 }
 
+.recaptcha-label {
+  color: white;
+  font-size: 0.7rem !important;
+}
+
+.recaptcha-label > a {
+  color: #228b22;
+  text-decoration: none;
+}
+
 .contact-form-container {
   display: flex;
   flex-direction: column;

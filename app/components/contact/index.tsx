@@ -93,13 +93,11 @@ export function Contact() {
           {actionData?.errors?.name && (
             <p className="error">{actionData.errors.name}</p>
           )}
-
           <label htmlFor="email">Email</label>
           <input type="email" id="email" name="email" required />
           {actionData?.errors?.email && (
             <p className="error">{actionData.errors.email}</p>
           )}
-
           <label htmlFor="message">Message</label>
           <textarea
             style={{ resize: "none" }}
@@ -111,10 +109,18 @@ export function Contact() {
           {actionData?.errors?.message && (
             <p className="error">{actionData.errors.message}</p>
           )}
-
           <button type="submit" disabled={navigation.state === "submitting"}>
             {navigation.state === "submitting" ? "Sending..." : "Send Message"}
           </button>
+          <label className="recaptcha-label">
+            This site is protected by reCAPTCHA and the Google{" "}
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+            {""}
+            <a href="https://policies.google.com/terms">
+              Terms of Service
+            </a>{" "}
+            apply.
+          </label>
         </Form>
 
         {showToast && (
