@@ -6,18 +6,46 @@ export async function action({ request }: ActionFunctionArgs) {
   const name = formData.get("name")?.toString().trim();
   const email = formData.get("email")?.toString().trim();
   const message = formData.get("message")?.toString().trim();
+  const token = formData.get("g-recaptcha-response");
   const sendgridApiKey = process.env.SENDGRID_API_KEY;
   const sendgridToEmail = process.env.SENDGRID_TO_EMAIL;
   const sendgridFromEmail = process.env.SENDGRID_FROM_EMAIL;
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+
+  if (!secretKey) {
+    console.warn("Missing reCAPTCHA secret key.");
+    return { success: false, error: "Missing reCAPTCHA secret key." };  
+  }
+
+   if (!token) {
+    return { success: false, error: "Missing reCAPTCHA token" };
+  }
+
+const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      secret: secretKey!,
+      response: token.toString(),
+    }),
+  });
+
+  const result = await response.json();
+
+  console.log("RESULT", result);
+
+  if (!result.success || result.score < 0.5) {
+    return { success: false, error: "reCAPTCHA verification failed" };
+  }
   
   if (!sendgridApiKey?.startsWith("SG.")) {
     console.warn("Invalid SendGrid API key.");
-    return
+    return { success: false, error: "Invalid SendGrid API key." };
   }
 
   if(!sendgridToEmail || !sendgridFromEmail) {
     console.warn("SendGrid TO or FROM email is not set.");
-    return
+    return { success: false, error: "SendGrid TO or FROM email is not set." };
   }
 
   sgMail.setApiKey(sendgridApiKey);

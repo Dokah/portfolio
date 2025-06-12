@@ -8,8 +8,15 @@ import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import { isMobile } from "~/utility/utils";
 
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
+
 type ActionData = {
   success?: boolean;
+  error?: string;
   errors?: {
     name?: string;
     email?: string;
@@ -23,25 +30,48 @@ export function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [showToast, setShowToast] = useState(false);
-  const [wasSubmitted, setWasSubmitted] = useState(false);
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (navigation.state === "submitting") {
-      setWasSubmitted(true);
-    }
-  }, [navigation.state]);
+    const loadReCaptcha = () => {
+      const script = document.createElement("script");
+      script.src = `https://www.google.com/recaptcha/api.js?render=${
+        import.meta.env.VITE_RECAPTCHA_SITE_KEY
+      }`;
+      script.async = true;
+      document.body.appendChild(script);
+    };
 
-  useEffect(() => {
-    if (wasSubmitted && actionData?.success) {
-      formRef.current?.reset();
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
-      setWasSubmitted(false);
-      setSearchParams({});
+    loadReCaptcha();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (typeof window.grecaptcha === "undefined") {
+      alert("reCAPTCHA failed to load.");
+      return;
     }
-  }, [actionData, wasSubmitted]);
+
+    const token = await window.grecaptcha.execute(
+      import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+      {
+        action: "submit",
+      }
+    );
+
+    const form = formRef.current;
+    if (!form) return;
+    const formData = new FormData(form);
+    formData.append("g-recaptcha-response", token);
+
+    fetch("/screen/action", {
+      method: "POST",
+      body: formData,
+    });
+    formRef.current?.reset();
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   return (
     <div className="contact-container">
@@ -52,7 +82,12 @@ export function Contact() {
       )}
 
       <div className="contact-form-container">
-        <Form method="post" className="contact-form" ref={formRef}>
+        <Form
+          method="post"
+          className="contact-form"
+          ref={formRef}
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="name">Name</label>
           <input type="text" id="name" name="name" required />
           {actionData?.errors?.name && (

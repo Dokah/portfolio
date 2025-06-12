@@ -8,6 +8,10 @@ body {
   margin: 0 !important;
 }
 
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
+
 .perspective {
   perspective: 1000px;
 }
