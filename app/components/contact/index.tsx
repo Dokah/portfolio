@@ -24,12 +24,30 @@ type ActionData = {
   };
 };
 
-export function Contact() {
+export function Contact({
+  setScrollEnabled,
+}: {
+  setScrollEnabled: (enabled: boolean) => void;
+}) {
   const actionData = useActionData<ActionData>();
   const navigation = useNavigation();
   const formRef = useRef<HTMLFormElement>(null);
 
   const [showToast, setShowToast] = useState(false);
+
+  const handleFocus = () => setScrollEnabled(false);
+  const handleBlur = () => {
+    setTimeout(() => {
+      const active = document.activeElement;
+      if (
+        active?.tagName !== "INPUT" &&
+        active?.tagName !== "TEXTAREA" &&
+        active?.tagName !== "SELECT"
+      ) {
+        setScrollEnabled(true);
+      }
+    }, 100);
+  };
 
   useEffect(() => {
     const loadReCaptcha = () => {
@@ -89,12 +107,26 @@ export function Contact() {
           onSubmit={handleSubmit}
         >
           <label htmlFor="name">Name</label>
-          <input type="text" id="name" name="name" required />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
           {actionData?.errors?.name && (
             <p className="error">{actionData.errors.name}</p>
           )}
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" required />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
           {actionData?.errors?.email && (
             <p className="error">{actionData.errors.email}</p>
           )}
@@ -105,6 +137,8 @@ export function Contact() {
             name="message"
             rows={5}
             required
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
           {actionData?.errors?.message && (
             <p className="error">{actionData.errors.message}</p>

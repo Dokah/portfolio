@@ -79,6 +79,7 @@ export default function Screen() {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const touchStartY = useRef<number | null>(null);
   const [size, setSize] = useState(0);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
 
   const isScrollingRef = useRef(false);
 
@@ -129,6 +130,7 @@ export default function Screen() {
   }, []);
 
   useEffect(() => {
+    if (!scrollEnabled) return;
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
     };
@@ -150,7 +152,7 @@ export default function Screen() {
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, []);
+  }, [scrollEnabled]);
 
   const ActiveSlide = slides[currentSlide];
 
@@ -203,7 +205,10 @@ export default function Screen() {
                 justifyContent: "center",
               }}
             >
-              <ActiveSlide setNextSlide={nextSlide} />
+              <ActiveSlide
+                setScrollEnabled={setScrollEnabled}
+                setNextSlide={nextSlide}
+              />
             </motion.div>
           </div>
         </AnimatePresence>
