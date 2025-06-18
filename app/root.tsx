@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Creative full-stack web developer portfolio built with Remix.js. Explore projects, design systems, and modern web solutions showcasing performance and accessibility.",
+        "Explore the portfolio of Dominik Kukovec, a web developer specializing in modern JavaScript frameworks like Remix.js and Next.js. Discover clean, fast, and accessible websites built with performance and user experience in mind.",
     },
   ];
 };
