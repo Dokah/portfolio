@@ -16,6 +16,24 @@ export const meta: MetaFunction = () => {
       content:
         "Explore the portfolio of Dominik Kukovec, a web developer specializing in modern JavaScript frameworks like Remix.js and Next.js. Discover clean, fast, and accessible websites built with performance and user experience in mind.",
     },
+    {
+      name: "keywords",
+      content:
+        "web developer, fullstack developer, JavaScript, TypeScript, Remix.js, Next.js, React, Node.js, web development, portfolio",
+    },
+    { name: "author", content: "Dominik Kukovec" },
+    {
+      property: "og:image",
+      content: "https://dominikkukovec.com/og-image.png",
+    },
+    { property: "og:title", content: "Dominik | Fullstack Web Developer" },
+    {
+      property: "og:description",
+      content:
+        "Explore the portfolio of Dominik Kukovec, a web developer specializing in modern JavaScript frameworks like Remix.js and Next.js. Discover clean, fast, and accessible websites built with performance and user experience in mind.",
+    },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://dominikkukovec.com" },
   ];
 };
 
