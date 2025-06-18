@@ -15,7 +15,7 @@ export { action } from "./screen.action";
 const slides = [Home, Tech, Projects, Contact];
 export function links() {
   return [
-    { rel: "preload", as: "image", href: "/assets/python.jpg" },
+    { rel: "prefetch", as: "image", href: "/assets/python.jpg" },
     { rel: "preload", as: "image", href: "/assets/portfolio.png" },
     { rel: "preload", as: "image", href: "/assets/github.svg" },
     { rel: "preload", as: "image", href: "/assets/linkedin.svg" },
