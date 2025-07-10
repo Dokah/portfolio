@@ -55,7 +55,7 @@ export const Projects = () => {
 
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % projects.length);
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [manualMode, projects.length]);
